@@ -7,6 +7,8 @@ const Demo = () => {
   const [showConnection, setShowConnection] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [moveToTop, setMoveToTop] = useState(false);
+  const [showBots, setShowBots] = useState(false);
+  const [showCandidates, setShowCandidates] = useState(false);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -33,6 +35,16 @@ const Demo = () => {
       setMoveToTop(true);
       setShowMessage(true);
     }, 3000); // 3 seconds total - move to top and show message
+    
+    // Then show the 20 bots
+    setTimeout(() => {
+      setShowBots(true);
+    }, 4000); // 4 seconds total - show bots
+    
+    // Then show candidates from NANDA Index
+    setTimeout(() => {
+      setShowCandidates(true);
+    }, 5000); // 5 seconds total - show candidates
   };
 
   return (
@@ -87,6 +99,26 @@ const Demo = () => {
                   <div className="db-glow"></div>
                   <div className="db-body">🗄️</div>
                   <div className="db-title">NANDA Index</div>
+                  
+                  {showCandidates && (
+                    <>
+                      <div className="candidates-arrow"></div>
+                      <div className="candidates-group">
+                        <div className="candidates-caption">Found Candidates</div>
+                        <div className="candidates-bots">
+                          {Array.from({ length: 6 }, (_, index) => (
+                            <div 
+                              key={index} 
+                              className="candidate-bot"
+                              style={{ animationDelay: `${index * 0.1}s` }}
+                            >
+                              <div className="candidate-bot-body">🤖</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </>
             )}
@@ -97,6 +129,25 @@ const Demo = () => {
               <div className="query-content">
                 <h3>Project Manager Agent Querying NANDA Index</h3>
                 <p>Processing your request with {numPoints || 0} points...</p>
+              </div>
+            </div>
+          )}
+          
+          {showBots && (
+            <div className="bots-section">
+              <div className="bots-title">
+                Finding engineers, designers, and astronomer agents
+              </div>
+              <div className="bots-grid">
+                {Array.from({ length: 20 }, (_, index) => (
+                  <div 
+                    key={index} 
+                    className="mini-bot"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="mini-bot-body">🤖</div>
+                  </div>
+                ))}
               </div>
             </div>
           )}

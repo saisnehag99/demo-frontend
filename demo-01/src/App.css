@@ -527,6 +527,123 @@ html, body, #root, .App {
   letter-spacing: 1px;
 }
 
+/* Candidates styling */
+.candidates-arrow {
+  position: absolute;
+  top: 50%;
+  right: -80px;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 2px;
+  background: #10b981;
+  animation: candidates-arrow-draw 0.8s ease-in-out;
+  z-index: 1;
+}
+
+.candidates-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #10b981;
+  border-right: 2px solid #10b981;
+}
+
+@keyframes candidates-arrow-draw {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 60px;
+  }
+}
+
+.candidates-group {
+  position: absolute;
+  top: 50%;
+  right: -200px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: candidates-group-appear 0.8s ease-out;
+}
+
+@keyframes candidates-group-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+.candidates-caption {
+  color: #10b981;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.candidates-bots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.3rem;
+}
+
+.candidate-bot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border: 1px solid #10b981;
+  border-radius: 50%;
+  animation: candidate-bot-appear 0.5s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.3);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+@keyframes candidate-bot-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(10px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.candidate-bot-body {
+  font-size: 0.8rem;
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
+  animation: candidate-bot-glow 2s ease-in-out infinite;
+}
+
+@keyframes candidate-bot-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.9));
+  }
+}
+
 /* Query box styling */
 .query-box {
   margin-top: 2rem;
@@ -561,6 +678,85 @@ html, body, #root, .App {
   margin: 0;
   font-size: 1.1rem;
   text-align: center;
+}
+
+/* Bots section styling */
+.bots-section {
+  margin-top: 2rem;
+  animation: bots-section-appear 0.5s ease-out;
+}
+
+@keyframes bots-section-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bots-title {
+  color: #60a5fa;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+}
+
+.bots-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mini-bot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border: 1px solid #3b82f6;
+  border-radius: 50%;
+  animation: mini-bot-appear 0.6s ease-out forwards;
+  opacity: 0;
+  transform: scale(0.3);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+@keyframes mini-bot-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.mini-bot-body {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+  animation: mini-bot-glow 2s ease-in-out infinite;
+}
+
+@keyframes mini-bot-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.9));
+  }
 }
 
  
