@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+import Map from './pages/Map.jsx';
+import Demo from './pages/Demo.jsx';
+import Index from './pages/Index.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState('map');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'map':
+        return <Map />;
+      case 'demo':
+        return <Demo />;
+      case 'index':
+        return <Index />;
+      default:
+        return <Map />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <nav className="navbar">
+        <div className="nav-brand">
+          <h2>Project NANDA</h2>
+        </div>
+        <div className="nav-links">
+          <button 
+            className={`nav-link ${currentPage === 'map' ? 'active' : ''}`}
+            onClick={() => setCurrentPage('map')}
+          >
+            Map
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'demo' ? 'active' : ''}`}
+            onClick={() => setCurrentPage('demo')}
+          >
+            Demo
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'index' ? 'active' : ''}`}
+            onClick={() => setCurrentPage('index')}
+          >
+            Index
+          </button>
+        </div>
+      </nav>
+      
+      <main className="main-content">
+        {renderPage()}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
