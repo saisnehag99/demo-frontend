@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
+  Line,
 } from '@vnedyalk0v/react19-simple-maps';
 
 const geoUrl = 'https://unpkg.com/world-atlas@2/countries-110m.json';
@@ -167,9 +168,13 @@ const regions = {
 // To get a flat list of all coordinates:
 const agentCoordinates = Object.values(regions).flat();
 
-
-
 const Map = () => {
+  const [showInteractionPanel, setShowInteractionPanel] = useState(false);
+
+  const handleLineClick = () => {
+    setShowInteractionPanel(true);
+  };
+
   return (
     <div className="map-container" style={{ position: 'relative' }}>
       {/* Animated background grid */}
@@ -230,6 +235,47 @@ const Map = () => {
         {/* EXPERT AGENT MARKERS */}
         {agentCoordinates.map((coord, i) => makeMarkers(coord, '#60a5fa', 'expert'))}
 
+        {/* INDIA TO BOSTON DIRECT LINE */}
+        <Line
+          from={[72.8777, 19.0760]}  // Mumbai
+          to={[-71.0589, 42.3601]}   // Boston
+          stroke="#ffffff"
+          strokeWidth={1}
+          style={{
+            filter: 'drop-shadow(0 0 4px rgba(255, 255, 255, 0.5))',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer'
+          }}
+          onClick={handleLineClick}
+        />
+
+        {/* TRAVELING BALL
+        <g>
+          <defs>
+            <linearGradient id="ballGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#1d4ed8" />
+            </linearGradient>
+            <path id="mumbaiBostonPath" d={`M ${72.8777} ${19.0760} L ${-71.0589} ${42.3601}`} />
+          </defs>
+          <circle
+            r={4}
+            fill="url(#ballGradient)"
+            stroke="#ffffff"
+            strokeWidth={1}
+            style={{
+              filter: 'drop-shadow(0 0 8px #3b82f6)',
+              animation: 'ball-travel 4s ease-in-out infinite'
+            }}
+          >
+            <animateMotion
+              dur="4s"
+              repeatCount="indefinite"
+              path="url(#mumbaiBostonPath)"
+            />
+          </circle>
+        </g> */}
+
       </ComposableMap>
 
       <div className="map-legend">
@@ -252,11 +298,68 @@ const Map = () => {
             <div className="stat-label">Total Nodes</div>
           </div>
           <div className="stat-item">
-            <div className="stat-value">8</div>
+            <div className="stat-value">13</div>
             <div className="stat-label">Regions</div>
           </div>
         </div>
       </div>
+
+      {/* INTERACTION PANEL */}
+      {showInteractionPanel && (
+        <div className="interaction-panel">
+          <div className="panel-header">
+            <div className="panel-icon">🔗</div>
+            <div className="panel-title">Agent Communication</div>
+            <button 
+              className="panel-close"
+              onClick={() => setShowInteractionPanel(false)}
+            >
+              ×
+            </button>
+          </div>
+          <div className="panel-content">
+            <div className="interaction-section">
+              <div className="section-title">Agent IDs</div>
+              <div className="agent-ids">
+                <div className="agent-id from">
+                  <span className="agent-label">From:</span>
+                  <span className="agent-name">MUM-EXP-001</span>
+                </div>
+                <div className="agent-id to">
+                  <span className="agent-label">To:</span>
+                  <span className="agent-name">BOS-EXP-002</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="interaction-section">
+              <div className="section-title">Task</div>
+              <div className="task-info">
+                <div className="task-type">Data Processing</div>
+                <div className="task-description">Real-time analytics computation for financial market predictions</div>
+              </div>
+            </div>
+            
+            <div className="interaction-section">
+              <div className="section-title">Points Exchange</div>
+              <div className="points-details">
+                <div className="points-transaction">
+                  <span className="panel-points-label">Transferred:</span>
+                  <span className="panel-points-value">250 pts</span>
+                </div>
+                {/* <div className="points-transaction">
+                  <span className="panel-points-label">Fee:</span>
+                  <span className="panel-points-value">15 pts</span>
+                </div>
+                <div className="points-transaction total">
+                  <span className="panel-points-label">Total:</span>
+                  <span className="panel-points-value">265 pts</span>
+                </div> */}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

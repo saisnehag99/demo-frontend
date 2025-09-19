@@ -15,26 +15,9 @@ const Index = () => {
   return (
     <div className="demo-container">
       <div className="demo-content">
-        <div className="text-input-container">
-          <input
-            type="text"
-            value={text}
-            onChange={handleTextChange}
-            placeholder="Enter text here..."
-            className="text-input"
-          />
-          <input
-            type="text"
-            value={numPoints}
-            onChange={handleNumPointsChange}
-            placeholder="Enter number of points here..."
-            className="text-input"
-          />
-        </div>
-        
         <div className="main-content-area">
           <h2>Main Content</h2>
-          <p>This is the main content area to the right of the sidebar.</p>
+          <p>This is the main content area.</p>
         </div>
       </div>
     </div>
